@@ -17,7 +17,7 @@ falconTs = int(time.time())
 falconEndpoint = "cluster-fastdfs"
 falconTimeStamp = 60
 falconPayload=[]
-falconAgentUrl="http://192.168.3.228:1988/v1/push"
+falconAgentUrl="http://127.0.0.1:1988/v1/push"
 
 # 对于monitor监控到的数据，用以下的变量去存放采集到的数据
 serverinfo={}
@@ -57,7 +57,7 @@ def falconValue(value):
     result = re.findall("(IP_CHANGED)",value)
     if len(result) == 1:
         return -1
-    result = re.findall("(\d+.\d+$)",value)
+    result = re.findall("(\d+\.\d+$)",value)
     if len(result) == 1:
         return value
     result = re.findall("(\d+$)",value)
@@ -107,7 +107,7 @@ for line in cmdResult:
     # 开始解析Group下面的
     groupInfoList = ["group name", "disk total space", "disk free space", "trunk free space", "storage server count", "active server count", "storage server port", "storage HTTP port", "store path count", "subdir count per path", "current write server index", "current trunk file id"]
     for groupInfo in groupInfoList:
-        result = re.findall("%s = (\w+)"%(groupInfo),line)
+        result = re.findall("%s = (.+)"%(groupInfo),line)
         if len(result) ==1:
             serverinfo[currentGroupNumber][groupInfo] = result[0]
             payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, groupInfo, falconTs, falconTimeStamp, falconValue(serverinfo[currentGroupNumber][groupInfo]),falconType(groupInfo),"group="+currentGroupNumber)
