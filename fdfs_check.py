@@ -73,7 +73,7 @@ def falconType(value):
     counterTypeList.append("up time")
     counterTypeList.append("join time")
     counterTypeList.append("last_heart_beat_time")
-    counterTypeList.append("success_append_count","success_create_link_count","success_delete_count","success_delete_link_count","success_download_count","success_file_open_count","success_file_read_count","success_file_write_count","success_get_meta_count","success_modify_count","success_set_meta_count","success_truncate_count","success_upload_count")
+    counterTypeList.extend(["success_append_count","success_create_link_count","success_delete_count","success_delete_link_count","success_download_count","success_file_open_count","success_file_read_count","success_file_write_count","success_get_meta_count","success_modify_count","success_set_meta_count","success_truncate_count","success_upload_count"])
     if value in counterTypeList:
         return "COUNTER"
     return "GAUGE"
