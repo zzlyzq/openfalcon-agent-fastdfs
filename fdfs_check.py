@@ -17,6 +17,7 @@ falconTs = int(time.time())
 falconEndpoint = "cluster-fastdfs"
 falconTimeStamp = 60
 falconPayload=[]
+falconAgentUrl="http://192.168.3.228:1988/v1/push"
 
 # 对于monitor监控到的数据，用以下的变量去存放采集到的数据
 serverinfo={}
@@ -145,5 +146,5 @@ for line in cmdResult:
 #print type(falconPayload[0])
 #print json.dumps(falconPayload)
 
-r = requests.post("http://192.168.3.228:1988/v1/push", data=json.dumps(falconPayload))
+r = requests.post(falconAgentUrl, data=json.dumps(falconPayload))
 print r.text
