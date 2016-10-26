@@ -85,16 +85,16 @@ for line in cmdResult:
     if len(result1)==1:
     	serverinfo['server_count'] = result1[0][0]
     	serverinfo['server_index'] = result1[0][1]
-        payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "server_count", falconTs, falconTimeStamp, falconValue(serverinfo['server_count']),"GAUGE","")
+        payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "fdfs.server_count", falconTs, falconTimeStamp, falconValue(serverinfo['server_count']),"GAUGE","")
         falconPayload.append(yaml.load(payloadString))
-        payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "server_index", falconTs, falconTimeStamp, falconValue(serverinfo['server_index']),"GAUGE","")
+        payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "fdfs.server_index", falconTs, falconTimeStamp, falconValue(serverinfo['server_index']),"GAUGE","")
         falconPayload.append(yaml.load(payloadString))
         continue
     # check group count
     result2=re.findall("group count: (\d+)",line) 
     if len(result2) == 1:
 	serverinfo['group_count'] = result2[0]
-        payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "group_count", falconTs, falconTimeStamp, falconValue(serverinfo['group_count']),"GAUGE","")
+        payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "fdfs.group_count", falconTs, falconTimeStamp, falconValue(serverinfo['group_count']),"GAUGE","")
         falconPayload.append(yaml.load(payloadString))
         #print serverinfo
         continue
@@ -111,7 +111,7 @@ for line in cmdResult:
         result = re.findall("%s = (.+)"%(groupInfo),line)
         if len(result) ==1:
             serverinfo[currentGroupNumber][groupInfo] = result[0]
-            payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, groupInfo, falconTs, falconTimeStamp, falconValue(serverinfo[currentGroupNumber][groupInfo]),falconType(groupInfo),"group="+currentGroupNumber)
+            payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "fdfs."+groupInfo, falconTs, falconTimeStamp, falconValue(serverinfo[currentGroupNumber][groupInfo]),falconType(groupInfo),"group="+currentGroupNumber)
             falconPayload.append(yaml.load(payloadString))
             break
     # Storage 1:
@@ -132,7 +132,7 @@ for line in cmdResult:
             #print line
             #print result
             serverinfo[currentGroupNumber][currentStorageNumber][storage_item] = result[0]
-            payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, storage_item, falconTs, falconTimeStamp, falconValue(serverinfo[currentGroupNumber][currentStorageNumber][storage_item]),falconType(storage_item),"group="+currentGroupNumber+",storage="+currentStorageNumber)
+            payloadString="""{ "endpoint": "%s", "metric": "%s", "timestamp": %s, "step": %s, "value": %s, "counterType": "%s", "tags": "%s"} """%(falconEndpoint, "fdfs."+storage_item, falconTs, falconTimeStamp, falconValue(serverinfo[currentGroupNumber][currentStorageNumber][storage_item]),falconType(storage_item),"group="+currentGroupNumber+",storage="+currentStorageNumber)
             falconPayload.append(yaml.load(payloadString))
             break
 
